@@ -1,0 +1,9 @@
+src/main/resources/data
+src/main/resources/evaluation
+src/main/resources/index
+src/main/resources/index_test
+
+*.iml
+/target
+/.idea
+/bin
