@@ -11,15 +11,14 @@ import java.util.ArrayList;
 
 /**
  * Round 1: https://ir.nist.gov/covidSubmit/data.html
- * Maximize __P_20__ metric.
+ * Maximize <b>P_20</b> metric.
  */
 public class Evaluator {
     private final ArrayList<String[]> topics;
     private final String outputDirPath;
 
     public Evaluator() throws IOException {
-        topics = EvalUtil.parseTopics(Utils.getProperty("topics"));
-
+        topics = EvalUtils.parseTopics(Utils.getProperty("topics"));
         String date = Long.toString(System.currentTimeMillis());
         File outputDir = new File(Utils.getProperty("output")+ date);
         if (!outputDir.mkdir()) throw new IOException();
@@ -34,7 +33,7 @@ public class Evaluator {
             ScoreDoc[] hits = searcher.search();
             hitsList.add(hits);
         }
-        File actualResults = EvalUtil.createResultsFile(outputDirPath, hitsList);
+        File actualResults = EvalUtils.createResultsFile(outputDirPath, hitsList);
         Comparator comparator = new Comparator(outputDirPath, actualResults.getAbsolutePath());
         comparator.createTrecResultsFile();
     }

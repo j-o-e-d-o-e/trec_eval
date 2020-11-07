@@ -15,7 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class EvalUtil {
+public class EvalUtils {
 
     public static File createResultsFile(String outputDirPath, ArrayList<ScoreDoc[]> results) throws IOException {
         File output = new File(outputDirPath + "/results.txt");

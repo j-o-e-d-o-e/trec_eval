@@ -39,8 +39,8 @@ public class Comparator {
             }
         } else
             logger.info("ERROR: trec_eval exec not found.");
-        FileWriter fw = new FileWriter(output);
-        fw.write(result.toString());
-        fw.close();
+        FileWriter writer = new FileWriter(output);
+        writer.write(result.toString());
+        writer.close();
     }
 }
