@@ -14,9 +14,9 @@ public class Comparator {
     public Comparator(String outputDirPath, String actualResultsPath) {
         this.output = new File(outputDirPath + "/trec-results.txt");
         this.binaryPath = Utils.getProperty("binary");
-        String params = Utils.getProperty("params");
+        String flags = Utils.getProperty("params");
         String qrelFilePath = new File(Utils.getProperty("qrel")).getAbsolutePath();
-        this.params = String.join(" ", params, qrelFilePath, actualResultsPath);
+        this.params = String.join(" ", flags, qrelFilePath, actualResultsPath);
     }
 
     public void createTrecResultsFile() throws IOException {
@@ -37,8 +37,9 @@ public class Comparator {
                 if (readerError.ready()) // read error stream
                     result.append(readerError.readLine()).append("\n");
             }
-        } else
+        } else {
             logger.info("ERROR: trec_eval exec not found.");
+        }
         FileWriter writer = new FileWriter(output);
         writer.write(result.toString());
         writer.close();
