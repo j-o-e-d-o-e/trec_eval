@@ -1,16 +1,13 @@
-package net.joedoe.evaluation;
+package net.joedoe.eval;
 
-import net.joedoe.evaluation.trec.Comparator;
-import net.joedoe.evaluation.trec.EvalUtil;
 import net.joedoe.search.Searcher;
-import net.joedoe.utilities.Utilities;
+import net.joedoe.util.Utils;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.ScoreDoc;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
 
 /**
  * Round 1: https://ir.nist.gov/covidSubmit/data.html
@@ -21,11 +18,10 @@ public class Evaluator {
     private final String outputDirPath;
 
     public Evaluator() throws IOException {
-        Properties prop = new Utilities().getProperties();
-        topics = EvalUtil.parseTopics(prop.get("topics").toString());
+        topics = EvalUtil.parseTopics(Utils.getProperty("topics"));
 
         String date = Long.toString(System.currentTimeMillis());
-        File outputDir = new File(prop.get("output").toString() + date);
+        File outputDir = new File(Utils.getProperty("output")+ date);
         if (!outputDir.mkdir()) throw new IOException();
         outputDirPath = outputDir.getAbsolutePath();
     }

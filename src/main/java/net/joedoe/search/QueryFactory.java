@@ -6,12 +6,12 @@ import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
 
-public class QueryFactory {
+class QueryFactory {
     enum QueryType {
         ANALYZER, TERM, PREFIX, BOOL, PHRASE, FUZZY, WILDCARD
     }
 
-    public static Query getQuery(QueryType queryType, String field, String[] terms) throws ParseException {
+    static Query getQuery(QueryType queryType, String field, String[] terms) throws ParseException {
         Query query;
         switch (queryType) {
             case ANALYZER:

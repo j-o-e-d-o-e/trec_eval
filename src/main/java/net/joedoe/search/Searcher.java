@@ -1,7 +1,8 @@
 package net.joedoe.search;
 
 import net.joedoe.search.QueryFactory.QueryType;
-import net.joedoe.utilities.Utilities;
+import net.joedoe.search.SimilarityFactory.SimType;
+import net.joedoe.util.Utils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -15,12 +16,11 @@ import org.apache.lucene.store.FSDirectory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 public class Searcher {
     @SuppressWarnings("FieldCanBeLocal")
-    private final String[] terms = new String[]{"covid", "economy"};
+    private final String[] terms = new String[]{"covid"};
     private Query query;
     private final String field;
     private final IndexSearcher searcher;
@@ -28,16 +28,14 @@ public class Searcher {
 
 
     public Searcher() throws IOException, ParseException {
-        Properties prop = new Utilities().getProperties();
-        field = prop.get("field2").toString();
+        field = Utils.getProperty("field2");
         query = QueryFactory.getQuery(QueryType.BOOL, field, terms);
 
-        File index = new File(prop.get("index").toString());
+        File index = new File(Utils.getProperty("index"));
         Directory directory = FSDirectory.open(index.toPath());
         IndexReader indexReader = DirectoryReader.open(directory);
         searcher = new IndexSearcher(indexReader);
-        String sim = prop.get("similarity").toString();
-        searcher.setSimilarity(new Similarity().getSims().get(sim));
+        searcher.setSimilarity(SimilarityFactory.getSim(SimType.CS));
     }
 
     public ScoreDoc[] search() throws IOException {

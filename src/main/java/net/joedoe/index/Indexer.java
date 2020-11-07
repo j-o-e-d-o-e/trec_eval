@@ -1,6 +1,7 @@
 package net.joedoe.index;
 
-import net.joedoe.utilities.Utilities;
+import net.joedoe.index.AnalyzerFactory.AnalyzerType;
+import net.joedoe.util.Utils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -13,7 +14,6 @@ import org.apache.lucene.store.FSDirectory;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 public class Indexer {
@@ -22,12 +22,10 @@ public class Indexer {
     private final Logger logger = Logger.getLogger(Indexer.class.getName());
 
     public Indexer() throws IOException {
-        Properties prop = new Utilities().getProperties();
-        input = new File(prop.get("data").toString());
-
-        String outputPath = prop.get("index").toString(); // + "_test";
+        input = new File(Utils.getProperty("data"));
+        String outputPath = Utils.getProperty("index"); // + "_test";
         Directory output = FSDirectory.open(Paths.get(new File(outputPath).getAbsolutePath()));
-        IndexWriterConfig config = new IndexWriterConfig(new StandardAnalyzer());
+        IndexWriterConfig config = new IndexWriterConfig(AnalyzerFactory.getAnalyzer(AnalyzerType.STD));
         config.setOpenMode(OpenMode.CREATE);
         writer = new IndexWriter(output, config);
     }

@@ -1,9 +1,8 @@
-package net.joedoe.evaluation.trec;
+package net.joedoe.eval;
 
-import net.joedoe.utilities.Utilities;
+import net.joedoe.util.Utils;
 
 import java.io.*;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 public class Comparator {
@@ -12,12 +11,11 @@ public class Comparator {
     private final String params;
     private final Logger logger = Logger.getLogger(Comparator.class.getName());
 
-    public Comparator(String outputDirPath, String actualResultsPath) throws IOException {
+    public Comparator(String outputDirPath, String actualResultsPath) {
         this.output = new File(outputDirPath + "/trec-results.txt");
-        Properties prop = new Utilities().getProperties();
-        this.binaryPath = prop.get("binary").toString();
-        String params = prop.get("params").toString();
-        String qrelFilePath = new File(prop.get("qrel").toString()).getAbsolutePath();
+        this.binaryPath = Utils.getProperty("binary");
+        String params = Utils.getProperty("params");
+        String qrelFilePath = new File(Utils.getProperty("qrel")).getAbsolutePath();
         this.params = String.join(" ", params, qrelFilePath, actualResultsPath);
     }
 

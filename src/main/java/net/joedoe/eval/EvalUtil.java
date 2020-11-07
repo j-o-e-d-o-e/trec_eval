@@ -1,4 +1,4 @@
-package net.joedoe.evaluation.trec;
+package net.joedoe.eval;
 
 import org.apache.lucene.search.ScoreDoc;
 import org.w3c.dom.Document;
