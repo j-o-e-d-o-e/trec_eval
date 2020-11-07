@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Round 1: https://ir.nist.gov/covidSubmit/data.html
- * Maximize __P_20__ metric.
+ * Maximize <b>P_20</b> metric.
  */
 public class Evaluator {
     private final ArrayList<String[]> topics;
@@ -19,7 +19,6 @@ public class Evaluator {
 
     public Evaluator() throws IOException {
         topics = EvalUtil.parseTopics(Utils.getProperty("topics"));
-
         String date = Long.toString(System.currentTimeMillis());
         File outputDir = new File(Utils.getProperty("output")+ date);
         if (!outputDir.mkdir()) throw new IOException();
