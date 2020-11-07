@@ -2,8 +2,6 @@ package net.joedoe.search;
 
 import org.apache.lucene.search.similarities.*;
 
-import java.util.HashMap;
-
 class SimilarityFactory {
     enum SimType {
         CS, BM_25, DIRI, BOOL, LMJ, AX, DFI, IBS
